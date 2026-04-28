@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Instructor Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Instructor Dashboard</h1>
+
+<p>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</p>
+
+<hr>
+
+{% if department %}
+    <h2>Department: {{ department.name }}</h2>
+
+    <h3>Your Department Courses</h3>
+
+    <ul>
+        {% for course in courses %}
+            <li>
+                <a href="{% url 'academics:course_detail' pk=course.pk %}">
+                    {{ course.name }}
+                </a>
+                ({{ course.credits }} credits)
+            </li>
+        {% empty %}
+            <li>No courses found for your department.</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not assigned to any department.</p>
+{% endif %}
+
+<br>
+
+<a href="{% url 'academics:course_list' %}">View All Courses</a>
+
+{% endblock %}

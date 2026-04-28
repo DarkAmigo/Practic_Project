@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Enroll Student{% endblock %}
+
+{% block content %}
+
+<h1>Enroll Student to {{ course.name }}</h1>
+
+<p>
+    <strong>Department:</strong> {{ course.department.name }} <br>
+    <strong>Credits:</strong> {{ course.credits }}
+</p>
+
+<hr>
+
+<h2>Enrollment Form</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit">Save Enrollment</button>
+</form>
+
+<br>
+
+<a href="{% url 'academics:course_detail' pk=course.pk %}">
+    ← Back to Course Details
+</a>
+
+{% endblock %}

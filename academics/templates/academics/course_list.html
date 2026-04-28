@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+<h1>Courses ({{ courses|length }})</h1>
+
+<form method="get">
+    <label>Filter by department:</label>
+    <input type="text" name="department" placeholder="Department name">
+    <button type="submit">Filter</button>
+</form>
+
+<br>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Credits</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for course in courses %}
+        <tr>
+            <td>
+                <a href="{% url 'academics:course_detail' pk=course.pk %}">
+                    {{ course.name }}
+                </a>
+            </td>
+            <td>{{ course.department.name }}</td>
+            <td>{{ course.credits }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="3">No courses found.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

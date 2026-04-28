@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h1>Admin Dashboard</h1>
+
+<p>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</p>
+
+<hr>
+
+<h2>System Overview</h2>
+
+<ul>
+    <li><strong>Total Departments:</strong> {{ departments.count }}</li>
+    <li><strong>Total Students:</strong> {{ total_students }}</li>
+    <li><strong>Total Courses:</strong> {{ total_courses }}</li>
+</ul>
+
+<hr>
+
+<h2>Departments</h2>
+
+<ul>
+    {% for department in departments %}
+        <li>
+            <a href="{% url 'academics:department_detail' pk=department.pk %}">
+                {{ department.name }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No departments found.</li>
+    {% endfor %}
+</ul>
+
+<br>
+
+<a href="{% url 'academics:course_list' %}">View All Courses</a>
+
+{% endblock %}

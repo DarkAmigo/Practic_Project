@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ department.name }}{% endblock %}
+
+{% block content %}
+<h1>{{ department.name }}</h1>
+
+<p>
+    <strong>Chairperson:</strong>
+    {{ department.chairperson|default:"—" }}
+</p>
+
+<hr>
+
+<h2>Staff</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for person in staff %}
+        <tr>
+            <td>{{ person.first_name }} {{ person.last_name }}</td>
+            <td>{{ person.email }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="2">No staff in this department.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Courses</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Credits</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for course in courses %}
+        <tr>
+            <td>{{ course.name }}</td>
+            <td>{{ course.credits }}</td>
+        </tr>
+    {% empty %}
+        <tr><td colspan="2">No courses available.</td></tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<br>
+<a href="{% url 'academics:department_list' %}">← Back to Departments</a>
+
+{% endblock %}
